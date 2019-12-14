@@ -10,7 +10,7 @@ public class Logic {
         Date dateTo = null;
 
         try {
-            dateTo = formatForDateNow.parse("2019.12.11,"+time);
+            dateTo = formatForDateNow.parse("2019.12.14,"+time);
         } catch (ParseException ex) {
             System.out.println(ex.getMessage());
         }
@@ -25,6 +25,7 @@ public class Logic {
                 break;
             }
         }
+        //todo stap to thread
     }
     public void brain(Date dateTo,String time){
         Date dateNow = new Date();

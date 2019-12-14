@@ -5,12 +5,15 @@ public class WindowNotify extends JFrame {
 
     public WindowNotify(String s) {
         setTitle("Alarm");
-        setBounds(700, 900, 200, 200);
+        setBounds(700, 900, 300, 300);
 
         JLabel time = new JLabel(s);
         JButton ok = new JButton("OK");
         ok.setBounds(60,70,60,40);
 
+        JLabel hourLabel = new JLabel("Попей!");
+        hourLabel.setBounds(60, 50, 100, 20);
+        add(hourLabel);
 
         time.setBounds(75,30,30,40);
 
