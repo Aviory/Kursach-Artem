@@ -54,15 +54,17 @@ public class Window extends JFrame implements ActionListener {
     public void createGraphics(int interval, int liters){
         //расчитываем время на интервалы от 8 утра до 22 вечера
 
-        double currentTime = 480000;
-        double partTime = 840000 / interval;
+        long currentTime = 480000;
+        long partTime = 840000 / interval;
 
         int stakan = liters * 1000 / interval;
         for (int i = 0; i < interval; i++) {
+            logic.setTime(currentTime);
+
             double time = round(currentTime/1000/60,2);
             addViewElement(time+" выпить " + stakan+"ml");
             currentTime += partTime;
-
+//            double min =  time%10;
         }
 
 

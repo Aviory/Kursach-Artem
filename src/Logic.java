@@ -5,17 +5,16 @@ import java.util.Date;
 
 public class Logic {
     ArrayList <TimeThread> times = new ArrayList<>();
-    public void setTime(String time){
+    public void setTime(long time){
+        Date now = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd,hh:mm");
-        Date dateTo = null;
-
+        Date today = null;
         try {
-            dateTo = formatForDateNow.parse("2019.12.14,"+time);
-        } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
+            today = formatForDateNow.parse(now.getYear()+"."+now.getMonth()+"."+now.getDay()+",00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-
-        brain(dateTo,time);
+        brain(time-(now.getTime()-today.getTime()));
     }
     public void delete(String time){
 
@@ -27,12 +26,12 @@ public class Logic {
         }
         //todo stap to thread
     }
-    public void brain(Date dateTo,String time){
-        Date dateNow = new Date();
-        long timeToAlarm = dateTo.getTime()-dateNow.getTime();
-        TimeThread timeThread = new TimeThread(timeToAlarm,this);
+    public void brain(long dateTo){
+        if(dateTo<=0)
+            return;
+        TimeThread timeThread = new TimeThread(dateTo,this);
         timeThread.start();
-        timeThread.setName(time);
+        timeThread.setName((String.valueOf(dateTo)));
         times.add(timeThread);
     }
     public void alarm(String time){
