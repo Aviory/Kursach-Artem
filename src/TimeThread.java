@@ -12,7 +12,7 @@ public class TimeThread extends Thread {
         }
         logic.alarm(getName());
     }
-    public TimeThread (long timeToAlarm,Logic logic){
+    public TimeThread (long timeToAlarm,Logic logic) {
         this.timeToAlarm = timeToAlarm;
         this.logic = logic;
     }

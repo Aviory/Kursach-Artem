@@ -15,6 +15,9 @@ public class Window extends JFrame implements ActionListener {
     GridLayout layout = new GridLayout(0, 2, 5, 12);
     JButton del;
     JButton btnPlus;
+    private int oldInterval;
+    private int oldliters;
+
     public Window(String title) {
         setTitle(title);
         setSize(500,400);
@@ -53,22 +56,28 @@ public class Window extends JFrame implements ActionListener {
 
     public void createGraphics(int interval, int liters){
         //расчитываем время на интервалы от 8 утра до 22 вечера
-
-        long currentTime = 480000;
-        long partTime = 840000 / interval;
-
-        int stakan = liters * 1000 / interval;
-        for (int i = 0; i < interval; i++) {
-            logic.setTime(currentTime);
-
-            double time = round(currentTime/1000/60,2);
-            addViewElement(time+" выпить " + stakan+"ml");
-            currentTime += partTime;
-//            double min =  time%10;
+        if(layout.getRows()==0) {
+            oldInterval = interval;
+            oldliters = liters;
+        }else {
+            oldInterval += interval;
+            oldliters += liters;
+            greedContainer.removeAll();
         }
 
+        long currentTime = 480000;//8ч в ммс
+        long partTime = 840000 / oldInterval; //840тыс 14ч, весь интервал дня
 
-        setSize(getWidth(),getHeight()+30*interval);
+        int stakan = oldliters * 1000 / oldInterval;
+        for (int i = 0; i < oldInterval; i++) {
+            logic.setTime(currentTime);
+
+            double time = round(currentTime / 1000 / 60, 2);
+            addViewElement(time + " выпить " + stakan + "ml");
+            currentTime += partTime;
+        }
+
+        setSize(getWidth(),getHeight()+30*oldInterval);
         repaint();
     }
     public void addViewElement(String value){
